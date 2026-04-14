@@ -8,8 +8,8 @@
   --text: #0a0a0a;
   --muted: #666666;
   --line: rgba(0, 0, 0, 0.08);
-  --primary: #3b82f6;
-  --primary-dark: #2563eb;
+  --primary: #0077b6;
+  --primary-dark: #023e8a;
   --shadow: none;
   --border: 1px solid var(--line);
   --radius-lg: 12px;
@@ -26,8 +26,8 @@ body[data-theme="dark"] {
   --text: #ffffff;
   --muted: #a0a0a0;
   --line: rgba(255, 255, 255, 0.1);
-  --primary: #3b82f6;
-  --primary-dark: #60a5fa;
+  --primary: #00b4d8;
+  --primary-dark: #48cae4;
   --shadow: none;
   --border: 1px solid var(--line);
 }
@@ -60,8 +60,8 @@ body::before {
   border-radius: var(--radius-lg);
   overflow: hidden;
   margin-bottom: 20px;
-  border: var(--border);
-  background: var(--bg-accent);
+  border: none;
+  background: transparent;
 }
 
 .profile-image {
@@ -92,8 +92,8 @@ body[data-theme="dark"]::before {
   background: var(--surface-strong);
   border: var(--border);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .glass-nav {
@@ -204,12 +204,12 @@ body[data-theme="dark"] .theme-icon-moon {
   flex-direction: column;
 }
 .hero-grid { display: grid; grid-template-columns: 1.4fr 0.9fr; gap: 24px; align-items: stretch; }
-.hero-copy, .hero-card, .panel {
+.panel {
   background: var(--surface);
   border: var(--border);
   box-shadow: var(--shadow);
 }
-.hero-copy { border-radius: 24px; padding: 48px 48px 80px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 520px; }
+.hero-copy { border-radius: 24px; padding: 80px 48px 48px; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; min-height: 520px; background: transparent; border: none; box-shadow: none; }
 .hero-copy::after { content: ""; position: absolute; width: 220px; height: 220px; right: -60px; top: -40px; background: radial-gradient(circle, rgba(59, 130, 246, 0.05), transparent 70%); }
 
 .dev-identity { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; font-family: monospace; font-size: 0.8rem; color: var(--muted); opacity: 0.8; }
@@ -249,7 +249,7 @@ html[dir="rtl"] .mini-list, html[dir="rtl"] .feature-list { padding-left: 0; pad
 .section { margin-top: 40px; }
 .section-heading { margin-bottom: 24px; }
 .section-heading h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 0; font-weight: 800; letter-spacing: -0.01em; }
-.panel { border-radius: var(--radius-lg); padding: 32px; }
+.panel { border-radius: var(--radius-lg); padding: 32px; transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips span { padding: 8px 14px; border-radius: 6px; background: var(--bg-accent); border: var(--border); font-weight: 600; font-size: 0.9rem; }
 body[data-theme="dark"] .chips span, body[data-theme="dark"] .button-secondary, body[data-theme="dark"] .language-picker, body[data-theme="dark"] .theme-toggle, body[data-theme="dark"] .topbar-link { background: var(--bg-accent); }
@@ -259,9 +259,24 @@ body[data-theme="dark"] .chips span, body[data-theme="dark"] .button-secondary, 
 .split-panel { grid-template-columns: 1fr 1fr; }
 .project-card h3, .channel-card h3, .goal-panel h3 { font-size: 1.4rem; margin-bottom: 10px; font-weight: 700; }
 .goal-panel { background: var(--bg-accent); }
+.project-card, .learning-panel { background: transparent; border: none; box-shadow: none; padding: 20px 0; }
+.project-card:hover, .learning-panel:hover { transform: translateY(-3px); border: none; box-shadow: none; }
+.channel-card:hover, .goal-panel:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 20px -10px rgba(0,0,0,0.15); }
+body[data-theme="dark"] .channel-card:hover, body[data-theme="dark"] .goal-panel:hover { box-shadow: 0 10px 20px -10px rgba(0,0,0,0.5); }
 
 .contact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.contact-card { display: flex; align-items: center; gap: 16px; padding: 20px; }
+@keyframes blink-border {
+  0%, 100% { border-color: var(--line); box-shadow: none; }
+  50% { border-color: var(--primary); box-shadow: 0 0 8px var(--primary); }
+}
+
+.contact-card { 
+  display: flex; 
+  align-items: center; 
+  gap: 16px; 
+  padding: 20px; 
+  animation: blink-border 2s infinite ease-in-out;
+}
 .contact-icon {
   flex: 0 0 48px;
   width: 48px;

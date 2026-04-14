@@ -15,11 +15,14 @@ let typeTimer, isDeleting = false, txtIdx = 0;
 function typeLoop(el, text) {
   if (typeTimer) clearTimeout(typeTimer);
   const fullTxt = text;
+  const currentText = fullTxt.substring(0, isDeleting ? txtIdx - 1 : txtIdx + 1);
+  
+  // Highlight "Code" or translated equivalents
+  el.innerHTML = currentText.replace(/\b(Code|gukoda|coder|kukoda|programar|Programmieren|البرمجة)\b/gi, '<span style="color:var(--primary)">$1</span>');
+
   if (isDeleting) {
-    el.textContent = fullTxt.substring(0, txtIdx - 1);
     txtIdx--;
   } else {
-    el.textContent = fullTxt.substring(0, txtIdx + 1);
     txtIdx++;
   }
   let typeSpeed = isDeleting ? 60 : 120;
